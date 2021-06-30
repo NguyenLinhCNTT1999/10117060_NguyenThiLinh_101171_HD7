@@ -1,0 +1,8 @@
+.monHoc-result{
+    position: absolute; 
+    background-color: rgb(142, 177, 218); 
+  
+    border-left:0.5px solid rgb(175, 175, 175);
+    border-right:0.5px solid rgb(175, 175, 175);
+    transition: 0.25s ease-in-out;
+}

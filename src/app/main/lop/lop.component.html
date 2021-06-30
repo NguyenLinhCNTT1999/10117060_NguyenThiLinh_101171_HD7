@@ -1,0 +1,160 @@
+<div class="panel panel-headline">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-home" aria-hidden="true"></i>Danh sách lớp </h3>
+        <p id="abc"></p>
+    </div>
+    <div class="panel-body">
+        <a (click)="createModal()" class="btn btn-success btn-sm">Thêm lớp</a>
+        <button (click)="exportexcel()"  pTooltip="XLS" tooltipPosition="bottom" style="width: 100px;
+        border: none;
+        height: 30px;
+        background: #06bbe4;
+        color: white;
+        margin-left: 644px;"><span class="lnr lnr-download">Xuất file</span></button>
+        <div>
+
+            <table class="table table-hover"id="excel-table">
+                <thead>
+                    <tr>
+                        <th>Mã sinh viên</th>
+                        <th>Tên lớp</th>
+                        <th>Mã khoa</th>
+                        <th>Mã hệ</th>
+                        <!-- <th>Dân tộc</th> -->
+                        <!-- <th>Sổ định danh</th> -->
+                        <!-- <th>Nơi Cấp</th> -->
+                        <!-- <th>Ngày cấp</th> -->
+                        <th>Mã ngành</th>
+                        <th>Trình độ</th>
+                        <th>Sĩ số</th>
+                        <th>Niên khóa</th>
+                        <th>Chi tiết</th>
+                        <th>Xóa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let sp of response">
+                        <tr>
+                            <td>{{sp.malop}}</td>
+                            <td>{{sp.tenlop}}</td>
+                            <td>{{sp.makhoa}}</td>
+                            <td>{{sp.maHe}}</td>
+                            <!-- <td> {{sp.danToc}}</td>
+                            <td>{{sp.soDinhDanh}}</td>
+                            <td> {{sp.noiCap}}</td>
+                            <td>{{sp.ngayCap}}</td> -->
+                            <td> {{sp.manganh}}</td>
+                            <td>{{sp.trinhDo}}</td>
+                            <td> {{sp.siSo}}</td>
+                            <td> {{sp.nienKhoa}}</td>
+                            <td><a class="btn btn-primary" (click)="openUpdateModal(sp)">Xem</a></td>
+                            <td><a class="btn btn-danger" (click)="confirmDelete(sp.maSV)">Xóa</a></td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            
+
+            
+        </div>
+    </div>
+
+    <!-- modal -->
+    <div *ngIf="showUpdateModal" id="sinhvienModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg full-height-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 *ngIf="isCreate" class="modal-title">Thêm lớp</h4>
+                    <h4 *ngIf="!isCreate" class="modal-title">Cập nhật lớp</h4>
+                </div>
+                <form *ngIf="doneSetupForm" [formGroup]="formdata" (ngSubmit)="onSubmit(formdata.value)"
+                    class="form-horizontal ">
+                    <div class="modal-body ">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <label class="control-label no-padding-right"> Mã lớp (<span
+                                                style="color: red;">*</span>)</label>
+                                        <input type="text" placeholder="Mã sinh viên" class="form-control"
+                                            formControlName="malop" />
+                                        <div *ngIf="submitted && f.malop.errors" class="text-danger">
+                                            <div *ngIf="f.malop.errors.required">Vui lòng nhập mã lớp</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <label class="control-label no-padding-right"> Tên lớp (<span
+                                                style="color: red;">*</span>)</label>
+                                        <input type="text" placeholder="Họ tên" class="form-control"
+                                            formControlName="tenlop" />
+                                        <div *ngIf="submitted && f.tenlop.errors" class="text-danger">
+                                            <div *ngIf="f.tenlop.errors.required">Vui lòng nhập tên lớp</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan=2>
+                                        <label class="control-label no-padding-right">Mã khoa</label>
+                                        <textarea placeholder="Mô tả" class="form-control"
+                                            formControlName="makhoa"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan=2>
+                                        <label class="control-label no-padding-right">Mã hệ</label>
+                                        <textarea placeholder="Mô tả" class="form-control"
+                                            formControlName="mahe"></textarea>
+                                    </td>
+                               </tr>
+                               <tr>
+                                <td colspan=2>
+                                    <label class="control-label no-padding-right">Mã ngành</label>
+                                    <textarea placeholder="Mô tả" class="form-control"
+                                        formControlName="manganh"></textarea>
+                                </td>
+                           </tr>
+
+                           <tr>
+                            <td colspan=2>
+                                <label class="control-label no-padding-right">Trình độ</label>
+                                <textarea placeholder="Mô tả" class="form-control"
+                                    formControlName="trinhdo"></textarea>
+                            </td>
+                       </tr>
+
+                       <tr>
+                        <td colspan=2>
+                            <label class="control-label no-padding-right">Sĩ số</label>
+                            <textarea placeholder="Mô tả" class="form-control"
+                                formControlName="siso"></textarea>
+                        </td>
+                   </tr>
+
+                   <tr>
+                    <td>
+                        <label class="control-label no-padding-right">Niên khóa</label>
+                        <input type="text" class="form-control" value="1" formControlName="nienkhoa" />
+                    </td>
+                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-default btn-sm" (click)="reset()">
+                            <i class="fa fa-bell"></i> Làm mới
+                        </button>
+                        <button type="submit" class="btn btn-success btn-sm btn-submit">
+                            <i class="fa fa-save"></i> Đồng ý
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm" (click)="closeModal()">
+                            <i class="fa fa-times"></i> Đóng lại
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  

@@ -1,0 +1,115 @@
+<div class="panel panel-headline">
+    <div class="panel-heading">
+        <h3 class="panel-title">Chương trình đào tạo</h3>
+        <p id="abc"></p>
+    </div>
+    <div class="panel-body">
+        <a (click)="createModal()" class="btn btn-success btn-sm">Thêm</a>
+        <button (click)="exportexcel()" style="border: none;height: 30px;background: #06bbe4;color: white;">Export to Excel</button>
+        <div>
+
+            <table class="table table-hover" id="excel-table">
+                <thead>
+                    <tr>
+                        <th>Mã CT</th>
+                        <th>Tên CT </th>
+                        <th>Chuyên ngành</th>
+                        <th>Hệ đào tạo</th>
+                        <th>Năm áp dụng</th>
+                        <th>Tổng số tín chỉ</th>
+                        <th>Người phê duyệt</th>
+                        <th>Ngày phê duyệt</th>
+                        <th>Chi tiết</th>
+                        <th>Xóa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let sp of response">
+                        <tr>
+                            <td>{{sp.maChuongTrinhDaoTao}}</td>
+                            <td>{{sp.tenChuongTrinhDaoTao}}</td>
+                            <td>{{sp.maChuyenNganh}}</td>
+                            <td>{{sp.maHe}}</td>
+                            <td>{{sp.namApDung}}</td>
+                            <td>{{sp.tongSoTinChi}}</td>
+                            <td>{{sp.nguoiKy}}</td>
+                            <td>{{sp.createdAt|date:'dd/mm/yyyy hh:mm:ss '}}</td>
+                            <td><a class="btn btn-primary" (click)="openUpdateModal(sp)">Xem</a></td>
+                            <td><a class="btn btn-danger" (click)="xoaMonHoc(sp.maMon)">Xóa</a></td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div>
+
+        </div>
+    </div>
+
+    <!-- modal -->
+    <div *ngIf="showUpdateModal" id="CTDTModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg full-height-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 *ngIf="isCreate" class="modal-title">Thêm CTDT</h4>
+                    <h4 *ngIf="!isCreate" class="modal-title">Cập nhật CTDT</h4>
+                </div>
+                <form *ngIf="doneSetupForm" [formGroup]="formdata" (ngSubmit)="onSubmit(formdata.value)"
+                    class="form-horizontal ">
+                    <div class="modal-body ">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <label class="control-label no-padding-right"> Mã ct (<span
+                                                style="color: red;">*</span>)</label>
+                                        <input type="text" placeholder="Mã chương trình" class="form-control"
+                                            formControlName="mactdt" />
+                                        <div *ngIf="submitted && f.mactdt.errors" class="text-danger">
+                                            <div *ngIf="f.mactdt.errors.required">Vui lòng nhập ma ct</div>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <label class="control-label no-padding-right"> Tên CT (<span
+                                                style="color: red;">*</span>)</label>
+                                        <input type="text" placeholder="Tên CT" class="form-control"
+                                            formControlName="tenctdt" />
+                                        <div *ngIf="submitted && f.tenctdt.errors" class="text-danger">
+                                            <div *ngIf="f.tenctdt.errors.required">Vui lòng nhập CT</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label class="control-label no-padding-right">Chuyên Ngành</label>
+                                        <select formControlName="chuyennganh" class="form-control">
+                                            <option value="0">Chọn chuyên ngành</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <label class="control-label no-padding-right">Hệ đào tạo</label>
+                                        <select formControlName="hedaotao" class="form-control">
+                                            <option value="0">Chọn Hệ đào tạo</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-default btn-sm" (click)="reset()">
+                            <i class="fa fa-bell"></i> Làm mới
+                        </button>
+                        <button type="submit" class="btn btn-success btn-sm btn-submit">
+                            <i class="fa fa-save"></i> Đồng ý
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm" (click)="closeModal()">
+                            <i class="fa fa-times"></i> Đóng lại
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

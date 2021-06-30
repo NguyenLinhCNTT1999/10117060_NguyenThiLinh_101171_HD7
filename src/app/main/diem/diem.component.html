@@ -1,0 +1,165 @@
+<div class="panel panel-headline">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-home" aria-hidden="true"></i>Danh sách điểm</h3>
+        <p id="abc"></p>
+    </div>
+    <div class="panel-body">
+        <a (click)="createModal()" class="btn btn-success btn-sm">Thêm điểm</a>
+        <button (click)="exportexcel()"  pTooltip="XLS" tooltipPosition="bottom" style="width: 100px;
+        border: none;
+        height: 30px;
+        background: #06bbe4;
+        color: white;
+        margin-left: 644px;"><span class="lnr lnr-download">Xuất file</span></button>
+        <div>
+
+            <table class="table table-hover"id="excel-table">
+                <thead>
+                    <tr>
+                        <!-- <th>Mã điểm</th> -->
+                        <th>Mã Sinh Viên</th>
+                        <th>Họ tên</th>
+                        <th>Tên môn</th>
+                        <th>Học kỳ</th>
+                        <th>Điểm lần 1</th>
+                        <th>Điểm lần 2</th>
+                        <th>Điểm chuyên cần</th>
+                        <th>Điểm bài tập</th>
+                        <th>Điểm quá trình</th>
+                        <th>Điểm TB</th>
+                        <th>Chi tiết</th>
+                        <th>Xóa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let sp of response">
+                        <tr>
+                            <!-- <td>{{sp.maDiem}}</td> -->
+                            <td>{{sp.maSV}}</td>
+                            <td>{{sp.hoTen}}</td>
+                            <td>{{sp.hocKy}}</td>
+                            <td>{{sp.tenMon}}</td>
+                            <td> {{sp.diemLan1}}</td> 
+                            <td>{{sp.diemLan2}}</td>
+                            <td> {{sp.diemChuyenCan}}</td>
+                            <td>{{sp.diemBaiTap}}</td> 
+                            <td> {{sp.diemQuaTrinh}}</td>
+                            <td>{{sp.diemTB}}</td>                    
+                            <td><a class="btn btn-primary" (click)="openUpdateModal(sp)">Xem</a></td>
+                            <td><a class="btn btn-danger" (click)="confirmDelete(sp.maDiem)">Xóa</a></td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            
+
+            
+        </div>
+    </div>
+
+    <!-- modal -->
+    <div *ngIf="showUpdateModal" id="diemModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg full-height-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 *ngIf="isCreate" class="modal-title">Thêm điểm</h4>
+                    <h4 *ngIf="!isCreate" class="modal-title">Cập nhật điểm</h4>
+                </div>
+                <form *ngIf="doneSetupForm" [formGroup]="formdata" (ngSubmit)="onSubmit(formdata.value)"
+                    class="form-horizontal ">
+                    <div class="modal-body ">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <label class="control-label no-padding-right"> Mã điểm(<span
+                                                style="color: red;">*</span>)</label>
+                                        <input type="text" placeholder="Mã sinh viên" class="form-control"
+                                            formControlName="madiem" />
+                                        <div *ngIf="submitted && f.madiem.errors" class="text-danger">
+                                            <div *ngIf="f.madiem.errors.required">Vui lòng nhập mã điểm</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <label class="control-label no-padding-right"> Mã sinh viên (<span
+                                                style="color: red;">*</span>)</label>
+                                        <input type="text" placeholder="Mã sinh viên" class="form-control"
+                                            formControlName="masv" />
+                                        <div *ngIf="submitted && f.masv.errors" class="text-danger">
+                                            <div *ngIf="f.masv.errors.required">Vui lòng nhập mã sinh viên</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan=2>
+                                        <label class="control-label no-padding-right">Họ tên</label>
+                                        <textarea placeholder="Họ tên" class="form-control"
+                                            formControlName="hoten"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                       <label class="control-label no-padding-right">Học kỳ</label>
+                                       <input type="text" class="form-control" value="1" formControlName="hocky" />
+                                   </td>
+                                   <td>
+                                       <label class="control-label no-padding-right"> Tên môn </label>
+                                       <input type="text" class="form-control" value="1" formControlName="tenmon" />
+                                   </td>
+                               </tr>
+                               <tr>
+                                <td>
+                                   <label class="control-label no-padding-right">Điểm lần 1</label>
+                                   <input type="text" class="form-control" value="1" formControlName="diemlan1" />
+                               </td>
+                               <td>
+                                   <label class="control-label no-padding-right">Điểm lần 2</label>
+                                   <input type="text" class="form-control" value="1" formControlName="diemlan2" />
+                               </td>
+                           </tr>
+
+                           <tr>
+                            <td>
+                               <label class="control-label no-padding-right">Điểm chuyên cần</label>
+                               <input type="text" class="form-control" value="1" formControlName="diemchuyencan" />
+                           </td>
+                           <td>
+                               <label class="control-label no-padding-right"> Điểm bài tập</label>
+                               <input type="text" class="form-control" value="1" formControlName="diembaitap" />
+                           </td>
+                       </tr>
+
+                       <tr>
+                        <td>
+                           <label class="control-label no-padding-right">Điểm quá trình</label>
+                           <input type="text" class="form-control" value="1" formControlName="diemquatrinh" />
+                       </td>
+                       <td>
+                           <label class="control-label no-padding-right">Trạng thái</label>
+                           <input type="text" class="form-control" value="1" formControlName="trangthai" />
+                       </td>
+                   </tr>
+
+                   
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-default btn-sm" (click)="reset()">
+                            <i class="fa fa-bell"></i> Làm mới
+                        </button>
+                        <button type="submit" class="btn btn-success btn-sm btn-submit">
+                            <i class="fa fa-save"></i> Đồng ý
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm" (click)="closeModal()">
+                            <i class="fa fa-times"></i> Đóng lại
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  

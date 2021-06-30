@@ -1,0 +1,133 @@
+.thchuyennganh {
+    text-align: center;
+    background: #2467ae;
+    color: white;
+}
+
+.tree, .tree ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+    .tree ul {
+        margin-left: 1em;
+        position: relative;
+    }
+
+        .tree ul:before {
+            content: "";
+            display: block;
+            width: 0;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            border-left: 1px solid;
+        }
+
+    .tree li {
+        margin: 0;
+        padding-left: 10px;
+        line-height: 2em;
+        color: #1e1076;
+        font-weight: 700;
+        font-size: 13px;
+        position: relative;
+    }
+
+    .tree ul li:before {
+        content: "";
+        display: block;
+        width: 10px;
+        height: 0;
+        border-top: 1px solid;
+        margin-top: -1px;
+        position: absolute;
+        top: 1em;
+        left: 0;
+    }
+
+    .tree ul li:last-child:before {
+        background: #fff;
+        height: auto;
+        top: 1em;
+        bottom: 0;
+    }
+
+    .tree li a {
+        text-decoration: none;
+        color: #1e1076;
+        margin-left: 5px;
+    }
+
+    .tree li button, .tree li button:active, .tree li button:focus {
+        text-decoration: none;
+        color: #1e1076;
+        border: none;
+        background: transparent;
+        margin: 0px 0px 0px 0px;
+        padding: 0px 0px 0px 0px;
+        outline: 0;
+    }
+
+#modal1 {
+    width: 86%;
+    height: auto;
+    margin: 0 auto;
+    padding: 0;
+    margin-top: 50px;
+    margin-bottom: 80px;
+}
+
+#modal2 {
+    height: auto;
+    min-height: 100%;
+    border-radius: 5px;
+}
+
+#modal3 {
+    width: 30%;
+    height: auto;
+    margin: 0 auto;
+    padding: 0;
+    margin-top: 100px;
+}
+
+#modal4 {
+  width: 86%;
+    height: auto;
+    margin: 0 auto;
+    padding: 0;
+    margin-top: 100px;
+}
+
+.kcl {
+    margin-left: 15px;
+}
+
+.kcr {
+    margin-right: 15px;
+}
+
+.kc2 {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.form-group {
+    margin-bottom: 5px;
+}
+
+.form-control-static {
+    color: Red;
+}
+
+/*.table-header td {
+    background-color: #003399 !important;
+    color: #fff !important;
+}*/
+
+.msgDangKy {
+    color: Red;
+}

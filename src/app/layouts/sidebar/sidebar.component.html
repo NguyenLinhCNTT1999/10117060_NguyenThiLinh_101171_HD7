@@ -1,0 +1,57 @@
+
+<div id="sidebar-nav" class="sidebar" style="    width: 287px;     margin-top: 50px;">
+<!--      
+    <div style="background: #dddddd; border-radius: 50%;border: 2px solid #a1a1a1; height: 150px; margin: 15px; padding: 10px; text-align: center;width: 150px; margin-left: 50px;"> 
+    </div> -->
+    <nav>
+        <ul class="nav" style="margin-top: -32px;;
+        background: black;
+        font-size: 22px;
+        line-height: revert;
+        color: white;    margin-left: -6px;
+    line-height: 48px;">
+            <li><a routerLink="dashboard" class="active"><i class="lnr lnr-home"></i> <span>QUẢN LÝ SINH VIÊN</span></a></li>
+            <!-- <ng-container *ngFor="let i of menus">
+            <li>
+                <a href="#{{i.action}}" data-toggle="collapse" class="collapsed"><i class="{{i.icon}}"></i> <span>{{i.name}}</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                <div id="{{i.action}}" class="collapse ">
+                    <ul class="nav">
+                        <ng-container *ngFor="let con of i.children">
+                        <li><a href="main/{{con.link}}" class="">{{con.ten}}</a></li>
+                    </ng-container>
+                    </ul>
+                </div>
+            </li>
+        </ng-container> -->
+        </ul>
+    </nav>
+    <div class="sidebar-scroll">
+        <nav>
+            <ul class="nav">
+ 
+                <li><a href="main/khoa"><i class="lnr lnr-book"> Quản lý Khoa </i></a></li>
+                <li><a href="main/nganh"><i class="lnr lnr-database"> Quản lý ngành đào tạo</i></a></li>
+                <!-- <li><a href="main/hedaotao"><i class="lnr lnr-briefcase"> Quản lý Hệ đào tạo</i></a></li> -->
+                <li><a href="main/chuyen-nganh"><i class="lnr lnr-briefcase"> Quản lý Chuyên ngành</i></a></li>
+                <!-- <li><a href="main/bo-mon"><i class="lnr lnr-briefcase"> Quản lý Bộ môn</i></a></li>              -->
+                <li><a href="main/sinh-vien"><i class="lnr lnr-file-add"> Quản lý Sinh viên</i></a></li>
+                <li><a href="main/lop"><i class="lnr lnr-file-add"> Quản lý Lớp</i></a></li>
+                <li><a href="main/diem"><i class="lnr lnr-file-add"> Quản lý Điểm</i></a></li>
+                <li><a href="main/mon-hoc"><i class="lnr lnr-file-add"> Quản lý Môn học</i></a></li>
+                <!-- <li><a href="main/taikhoan" style="font-size: 17px;"> <span class="lnr lnr-user"></span> Quản lý người dùng</a></li> -->
+                <ng-container *ngFor="let i of menus">
+                <li>
+                     <a href="#{{i.action}}" data-toggle="collapse" class="collapsed"  style="font-size: 15px;">Quản lý Chương trình đào tạo<i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                    <div id="{{i.action}}" class="collapse ">
+                        <ul class="nav">
+                            <ng-container *ngFor="let con of i.children">
+                            <li><a style="font-size: 15px;" href="main/{{con.link}}" class="">{{con.ten}}</a></li>
+                        </ng-container>
+                        </ul>
+                    </div>
+                </li>
+            </ng-container>
+            </ul>
+        </nav>
+    </div>
+</div>

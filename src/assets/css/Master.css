@@ -1,0 +1,148 @@
+
+/*CSS Loading*/
+#circularG {
+    position: relative;
+    width: 143px;
+    height: 143px;
+    margin: auto;
+}
+
+.circularG {
+    position: absolute;
+    background-color: #01a4e0;
+    width: 33px;
+    height: 33px;
+    border-radius: 21px;
+    animation-name: bounce_circularG;
+    animation-duration: 1.6s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+}
+
+#circularG_1 {
+    left: 0;
+    top: 47px;
+    animation-delay: 0.30s;
+}
+
+#circularG_2 {
+    left: 14px;
+    top: 14px;
+    animation-delay: 0.50s;
+}
+
+#circularG_3 {
+    top: 0;
+    left: 57px;
+    animation-delay: 0.70s;
+}
+
+#circularG_4 {
+    right: 14px;
+    top: 14px;
+    animation-delay: 0.90s;
+}
+
+#circularG_5 {
+    right: 0;
+    top: 57px;
+    animation-delay: 1.10s;
+}
+
+#circularG_6 {
+    right: 14px;
+    bottom: 14px;
+    animation-delay: 1.30s;
+}
+
+#circularG_7 {
+    left: 57px;
+    bottom: 0;
+    animation-delay: 1.50s;
+}
+
+#circularG_8 {
+    left: 14px;
+    bottom: 14px;
+    animation-delay: 1.70s;
+}
+
+
+
+@keyframes bounce_circularG {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(.3);
+    }
+}
+
+
+/*.tree, .tree ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+    .tree ul {
+        margin-left: 1em;
+        position: relative;
+    }
+
+        .tree ul:before {
+            content: "";
+            display: block;
+            width: 0;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            border-left: 1px solid;
+        }
+
+    .tree li {
+        margin: 0;
+        padding-left: 10px;
+        line-height: 2em;
+        color: #1e1076;
+        font-weight: 700;
+        font-size: 13px;
+        position: relative;
+    }
+
+    .tree ul li:before {
+        content: "";
+        display: block;
+        width: 10px;
+        height: 0;
+        border-top: 1px solid;
+        margin-top: -1px;
+        position: absolute;
+        top: 1em;
+        left: 0;
+    }
+
+    .tree ul li:last-child:before {
+        background: #fff;
+        height: auto;
+        top: 1em;
+        bottom: 0;
+    }
+
+    .tree li a {
+        text-decoration: none;
+        color: #1e1076;
+        margin-left: 5px;
+    }
+
+    .tree li button, .tree li button:active, .tree li button:focus {
+        text-decoration: none;
+        color: #1e1076;
+        border: none;
+        background: transparent;
+        margin: 0px 0px 0px 0px;
+        padding: 0px 0px 0px 0px;
+        outline: 0;
+    }*/

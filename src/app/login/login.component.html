@@ -1,0 +1,46 @@
+
+		<div class="vertical-align-wrap">
+			<div class="vertical-align-middle">
+				<div class="auth-box ">
+					<div class="left">
+						<div class="content">
+							<div class="header">
+								<div class="logo text-center">HỆ THỐNG WEBSITE QUẢN LÝ SINH VIÊN</div>
+								<p class="lead">Đăng nhập vào hệ thống</p>
+							</div>
+							<form class="form-auth-small" [formGroup]='loginForm' (ngSubmit)="dangNhap(loginForm.value)">
+								<div class="form-group">
+									<label class="text-danger" style="display:none" id="error-login" for="">Tên đăng nhập hoặc mật khẩu không chính xác</label>
+									<label for="signin-email" class="control-label sr-only">tên đăng nhập</label>
+									<input type="text" class="form-control" formControlName="email" id="signin-email" placeholder="tên dăng nhập">
+								</div>
+								<div class="form-group">
+									<label for="signin-password" class="control-label sr-only">mật khẩu</label>
+									<input type="password" class="form-control" formControlName="password" id="signin-password" placeholder="mật khẩu">
+								</div>
+								<div class="form-group clearfix">
+									<label class="fancy-checkbox element-left">
+										<input type="checkbox">
+										<span>Ghi nhớ</span>
+									</label>
+								</div>
+								<button type="submit" class="btn btn-primary btn-lg btn-block">Đăng nhập</button>
+								<div class="bottom">
+									<span class="helper-text"><i class="fa fa-lock"></i> <a href="#">Quên mật khẩu</a></span>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="right">
+						<div class="overlay"></div>
+						<div class="content text">
+							<h1 class="heading">Đại học Sư phạm Kỹ thuật Hưng Yên</h1>
+							<p>2021</p>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+
+	<!-- END WRAPPER -->

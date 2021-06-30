@@ -1,0 +1,61 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="brand">
+        <a href="index.html"><img src="assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
+    </div>
+    <form class="navbar-form navbar-left" style="    margin-top: 20px;
+    margin-left: 67px;">
+        <div class="input-group">
+            <input type="text" value="" class="form-control" placeholder="Nhập ô tìm kiếm...">
+            <span class="input-group-btn"><button type="button" class="btn btn-primary">Search</button></span>
+        </div>
+    </form>
+
+    <div class="container-fluid">
+        <div class="navbar-btn navbar-btn-right">
+            <a class="btn btn-light"  (click)="dangXuat()" title="Đăng xuất" target="_blank"><span class="lnr lnr-exit"></span> Đăng xuất</a>
+        </div>
+        <div id="navbar-menu">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+                        <!-- <span class="lnr lnr-undo"></span> -->
+                        <!-- <span> Vào trang chủ</span> -->
+                    </a>
+                   
+                    <!-- <ul class="dropdown-menu notifications">
+                        <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
+                        <li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
+                        <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Monthly report is available</a></li>
+                        <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Weekly meeting in 1 hour</a></li>
+                        <li><a href="#" class="notification-item"><span class="dot bg-success"></span>Your request has been approved</a></li>
+                        <li><a href="#" class="more">See all notifications</a></li>
+                    </ul>  -->
+                    <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+                        <i class="lnr lnr-alarm"></i>
+                        <span class="badge bg-danger">5</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="lnr lnr-question-circle"></i> <span> Giúp đỡ</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a> -->
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Basic Use</a></li>
+                        <li><a href="#">Working With Data</a></li>
+                        <li><a href="#">Security</a></li>
+                        <li><a href="#">Troubleshooting</a></li>
+                        <li><a href="#">{{ profile.hoten }}</a></li>
+                    </ul>
+                </li>
+                <!-- <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="lnr lnr-user"> Tài khoản: {{account}}</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><i class="lnr lnr-user"></i> <span>{{account}}</span></a></li>
+                        <li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+                    </ul>
+                </li>
+                -->
+                
+            </ul>
+           
+        </div>
+    </div>
+</nav>

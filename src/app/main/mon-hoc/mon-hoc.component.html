@@ -1,0 +1,172 @@
+<div class="panel panel-headline">
+    <div class="panel-heading">
+        <h3 class="panel-title"><span class="lnr lnr-home"></span>Quản lý Môn học </h3>
+    <div style="float: right;margin-right: 100px;">
+    <button (click)="exportexcel()"  pTooltip="XLS" tooltipPosition="bottom" style="    width: 100px;border: none;height: 30px;background: #06bbe4;color: white;"><span class="lnr lnr-download">Xuất file</span></button>
+    </div>
+    </div>
+    <div class="panel-body">
+    
+        <a (click)="createModal()" class="btn btn-success btn-sm"><span class="lnr lnr-file-add"> Thêm Môn học</span></a><br>
+        <div>
+            <div>
+                <h4>Tìm kiếm môn học</h4>
+             <form [formGroup]="formSearch">
+                <div class="border border-primary" style="border :0.3px solid rgb(175, 175, 233); padding: 10px;">
+                    <div class="row">
+
+                        <div class="col-md-2">
+                            <label for="">Bộ môn</label>
+                        </div>
+                        <div class="col-md-4">
+                            <select id="" class="form-control" formControlName="boMon" (change)="timKiem()">
+                                <option value="">Chọn bộ môn</option>
+                                <option *ngFor="let bomon of bomons" [value]="bomon.maBoMon">{{bomon.tenBoMon}}</option>
+                            </select>
+                        </div>
+                   
+
+                        <div class="col-md-2">
+                            <label for="">Tên môn</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control"  formControlName="keyWord" (change)="timKiem()">
+                        </div>
+                    </div>
+                </div>
+             </form>
+            </div>
+            <table class="table table-hover"   id="excel-table">
+                <thead>
+                    <tr>
+                        <th>Mã môn</th>
+                        <th>Tên môn </th>
+                        <th>Khối kiến thức</th>
+                        <th>Số tc lý thuyết</th>
+                        <th>Số tc thực hành</th>
+                        <th>Thời gian cập nhật</th>
+                        <!-- <th>Trạng thái</th> -->
+                        <th>Chi tiết</th>
+                        <th>Xóa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let sp of response.data">
+                        <tr>
+                            <td>{{sp.maMon}}</td>
+                            <td>{{sp.tenMon}}</td>
+                            <td>{{sp.khoiKienThuc}}</td>
+                            <td>{{sp.soTCLyThuyet}}</td>
+                            <td> {{sp.soTCThucHanh}}</td>
+                            <td>{{sp.createdAt|date:'dd-MM-yyyy'}}</td>
+                            <!-- <td *ngIf="sp.trangthai"><p style="color: green;"> Đang hoạt động</p></td>
+                            <td *ngIf="!sp.trangthai"><p style="color: red;"> Đã ẩn </p></td> -->
+                            <td><a class="btn btn-primary" (click)="openUpdateModal(sp)">Xem</a></td>
+                            <td><a class="btn btn-danger" (click)="xoaMonHoc(sp)">Xóa</a></td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <ngb-pagination [collectionSize]="totalRecords" [pageSize]="size" [(page)]="index" [maxSize]="10"
+                [rotate]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+
+    <!-- modal -->
+    <div *ngIf="showUpdateModal" id="MonHocModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg full-height-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 *ngIf="isCreate" class="modal-title">Thêm môn học</h4>
+                    <h4 *ngIf="!isCreate" class="modal-title">Cập nhật môn học</h4>
+                </div>
+                <form *ngIf="doneSetupForm" [formGroup]="formdata" (ngSubmit)="onSubmit(formdata.value)"
+                    class="form-horizontal ">
+                    <div class="modal-body ">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <label class="control-label no-padding-right"> Mã môn (<span
+                                                style="color: red;">*</span>)</label>
+                                        <input type="text" placeholder="Mã môn" class="form-control"
+                                            formControlName="mamon" />
+                                        <div *ngIf="submitted && f.mamon.errors" class="text-danger">
+                                            <div *ngIf="f.mamon.errors.required">Vui lòng nhập mã môn</div>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <label class="control-label no-padding-right"> Tên môn (<span
+                                                style="color: red;">*</span>)</label>
+                                        <input type="text" placeholder="Tên môn" class="form-control"
+                                            formControlName="tenmon" />
+                                        <div *ngIf="submitted && f.tenmon.errors" class="text-danger">
+                                            <div *ngIf="f.tenmon.errors.required">Vui lòng nhập Tên môn</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan=2>
+                                        <label class="control-label no-padding-right">Khối kiến thức</label>
+                                        <textarea placeholder="Mô tả" class="form-control"
+                                            formControlName="khoikienthuc"></textarea>
+
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label class="control-label no-padding-right"> Số TC lý thuyết</label>
+                                        <input type="text" class="form-control" value="1" formControlName="sotclt" />
+                                    </td>
+                                    <td>
+                                        <label class="control-label no-padding-right"> Số TC thực hành</label>
+                                        <input type="text" class="form-control" value="1" formControlName="sotcth" />
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-default btn-sm" (click)="reset()">
+                            <i class="fa fa-bell"></i> Làm mới
+                        </button>
+                        <button type="submit" class="btn btn-success btn-sm btn-submit">
+                            <i class="fa fa-save"></i> Đồng ý
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm" (click)="closeModal('MonHocModal')">
+                            <i class="fa fa-times"></i> Đóng lại
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="dialog" id="DialogModal" class="modal fade" role="dialog">
+        <div class="modal-dialog full-height-modal modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{dialog.title}}</h4>
+                </div>
+                <div class="modal-body ">
+                    <div>
+                        {{dialog.message}}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" (click)=[dialog.behavior] class="btn btn-danger btn-sm btn-submit">
+                        OK
+                    </button>
+                    <button *ngIf="dialog.type==alert" type="button" class="btn btn-default btn-sm"
+                        (click)="closeModal('DialogModal')">
+                        <i class="fa fa-times"></i> Hủy
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>

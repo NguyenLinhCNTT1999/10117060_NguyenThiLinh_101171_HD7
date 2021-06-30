@@ -1,0 +1,111 @@
+ 
+<div class="panel panel-headline">
+    <div class="panel-heading">
+        <h3 class="panel-title"><span class="lnr lnr-home"></span> Quản lý Chuyên ngành</h3>
+    <div style="float: right;margin-right: 100px;">
+    <button (click)="exportExcel()"  pTooltip="XLS" tooltipPosition="bottom" style="    width: 100px;border: none;height: 30px;background: #06bbe4;color: white;"><span class="lnr lnr-download">Xuất file</span></button>
+    </div>
+    </div>
+    <div class="panel-body">
+        <a (click)="createModal()" class="btn btn-success btn-sm"><span class="lnr lnr-file-add"> Thêm Chuyên ngành</span></a><br>
+        <div>
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Mã Chuyên ngành</th>
+                        <th>Tên Chuyên ngành </th>
+                        <th>Ngành</th>
+                        <th>Thời gian cập nhật</th>
+                        <th>Chi tiết</th>
+                        <th>Xóa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let sp of response">
+                        <tr>
+                            <td>{{sp.maChuyenNganh}}</td>
+                            <td>{{sp.tenChuyenNganh}}</td>
+                            <td><span *ngIf="sp.nganh">{{sp.nganh.tenNganh}}</span></td>
+                            <td>{{sp.createdAt|date:'dd-MM-yyyy'}}</td>
+                            <td><a class="btn btn-primary" (click)="openUpdateModal(sp)">Xem</a></td>
+                            <td><a class="btn btn-danger" (click)="xoaChuyenNganh(sp.maChuyenNganh)">Xóa</a></td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div>
+
+        </div>
+    </div>
+
+    <!-- modal -->
+    <div *ngIf="showUpdateModal" id="chuyenNganhModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg full-height-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 *ngIf="isCreate" class="modal-title">Thêm Chuyên ngành</h4>
+                    <h4 *ngIf="!isCreate" class="modal-title">Cập nhật Chuyên ngành</h4>
+                </div>
+                <form *ngIf="doneSetupForm" [formGroup]="formdata" (ngSubmit)="onSubmit(formdata.value)"
+                    class="form-horizontal ">
+                    <div class="modal-body ">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <label class="control-label no-padding-right"> Mã Chuyên ngành (<span
+                                                style="color: red;">*</span>)</label>
+                                        <input type="text" placeholder="Mã Chuyên ngành" class="form-control"
+                                            formControlName="machuyennganh" />
+                                        <div *ngIf="submitted && f.machuyennganh.errors" class="text-danger">
+                                            <div *ngIf="f.machuyennganh.errors.required">Vui lòng nhập Chuyên ngành
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <label class="control-label no-padding-right"> Tên Chuyên ngành (<span
+                                                style="color: red;">*</span>)</label>
+                                        <input type="text" placeholder="Tên Chuyên ngành" class="form-control"
+                                            formControlName="tenchuyennganh" />
+                                        <div *ngIf="submitted && f.tenchuyennganh.errors" class="text-danger">
+                                            <div *ngIf="f.tenchuyennganh.errors.required">Vui lòng nhập Chuyên ngành
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label class="control-label no-padding-right">Ngành</label>
+                                        <select formControlName="nganh" class="form-control">
+                                            <option selected value="">Chọn ngành</option>
+                                                <option *ngFor="let n of dsNganh" value="{{n.maNganh}}">{{n.tenNganh}}
+                                                </option>
+                                        </select>
+                                        <div *ngIf="submitted && f.nganh.errors" class="text-danger">
+                                            <div *ngIf="f.nganh.errors.required">Vui lòng chon ngành</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-default btn-sm" (click)="reset()">
+                            <i class="fa fa-bell"></i> Làm mới
+                        </button>
+                        <button type="submit" class="btn btn-success btn-sm btn-submit">
+                            <i class="fa fa-save"></i> Đồng ý
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm" (click)="closeModal()">
+                            <i class="fa fa-times"></i> Đóng lại
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

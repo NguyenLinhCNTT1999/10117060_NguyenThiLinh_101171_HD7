@@ -1,0 +1,148 @@
+ 
+<div class="panel panel-headline">
+    <div class="panel-heading">
+        <h3 class="panel-title"><span class="lnr lnr-home"></span> Trang chủ / Quản lý Bộ môn</h3>
+    <div style="float: right;margin-right: 100px;">
+    <button (click)="exportExcel()"  pTooltip="XLS" tooltipPosition="bottom" style="    width: 100px;border: none;height: 30px;background: #06bbe4;color: white;"><span class="lnr lnr-download">Xuất file</span></button>
+    </div>
+    </div>
+    <div class="panel-body">
+        <a (click)="createModal()" class="btn btn-success btn-sm"><span class="lnr lnr-file-add"> Thêm Bộ môn</span></a><br>
+        <div>
+        
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Mã bộ môn</th>
+                        <th>Tên bộ môn </th>
+                        <th>Tên Khoa</th>
+                        <th>SĐT người quản lý</th>
+                        <th>Tên người quản lý</th>
+                         
+                        <!-- <th>Chi tiết</th>
+                        <th>Xóa</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let sp of response">
+                        <tr>
+                            <td>{{sp.maBoMon}}</td>
+                            <td>{{sp.tenBoMon}}</td>
+                            <td>{{sp.maKhoa}}</td>
+                            <!-- <td><span *ngIf="sp.khoa">{{sp.khoa.tenkhoa}}</span></td> -->
+                            <td>{{sp.sdtNguoiQuanLy}}</td>
+                            <td>{{sp.nguoiQuanLy}}</td>
+               
+                           
+                            <!-- <td><a class="btn btn-primary" (click)="openUpdateModal(sp)"> <span class="lnr lnr-pencil"></span> </a></td>
+                            <td><a class="btn btn-danger" (click)="xoaBomon(sp.mabomon)"> <span class="lnr lnr-trash"></span></a></td> -->
+                        </tr>
+                        <ul *ngFor="let bomon of Bomon">
+                            <li>{{bomon.mabomon}}</li>
+                        </ul>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <!-- phân trang -->
+        </div>
+    </div>
+
+    <!-- modal -->
+    <div *ngIf="showUpdateModal" id="bomonModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg full-height-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 *ngIf="isCreate" class="modal-title">Nhập thông tin  bộ môn</h4>
+                    <h4 *ngIf="!isCreate" class="modal-title">Cập nhật thông tin  bộ môn</h4>
+                </div>
+                <form *ngIf="doneSetupForm" [formGroup]="formdata" (ngSubmit)="onSubmit(formdata.value)"
+                    class="form-horizontal ">
+                    <div class="modal-body ">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <label class="control-label no-padding-right"> Mã  bộ môn (<span
+                                                style="color: red;">*</span>)</label>
+                                        <input *ngIf="isCreate" type="text" placeholder="Mã  bộ môn" class="form-control"
+                                            formControlName="mabomon" />
+                                            <input *ngIf="!isCreate" readonly style="cursor: not-allowed;" type="text" placeholder="Mã  bộ môn" class="form-control"
+                                            formControlName="mabomon" />
+                                        <div *ngIf="submitted && f.mabomon.errors" class="text-danger">
+                                            <div *ngIf="f.mabomon.errors.required">Vui lòng nhập Mã  bộ môn</div>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <label class="control-label no-padding-right"> Tên bộ môn (<span
+                                                style="color: red;">*</span>)</label>
+                                        <input type="text" placeholder="Tên  bộ môn" class="form-control"
+                                            formControlName="tenbomon" />
+                                        <div *ngIf="submitted && f.tenbomon.errors" class="text-danger">
+                                            <div *ngIf="f.tenbomon.errors.required">Vui lòng nhập Tên bộ môn</div>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <label class="control-label no-padding-right"> Mã Khoa (<span
+                                                style="color: red;">*</span>)</label>
+                                        <input type="text" placeholder="Tên Khoa" class="form-control"
+                                            formControlName="makhoa" />
+                                        <div *ngIf="submitted && f.makhoa.errors" class="text-danger">
+                                            <div *ngIf="f.makhoa.errors.required">Vui lòng nhập Tên Khoa</div>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <label class="control-label no-padding-right">SĐT người quản lý (<span
+                                                style="color: red;">*</span>)</label>
+                                        <input type="text" placeholder="SĐT người quản lý " class="form-control"
+                                            formControlName="sdtnguoiquanly" />
+                                        <div *ngIf="submitted && f.sdtnguoiquanly.errors" class="text-danger">
+                                            <div *ngIf="f.sdtnguoiquanly.errors.required">Vui lòng nhập SĐT người quản lý </div>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <label class="control-label no-padding-right">Người quản lý (<span
+                                                style="color: red;">*</span>)</label>
+                                        <input type="text" placeholder="SĐT người quản lý " class="form-control"
+                                            formControlName="nguoiquanly" />
+                                        <div *ngIf="submitted && f.nguoiquanly.errors" class="text-danger">
+                                            <div *ngIf="f.nguoiquanly.errors.required">Vui lòng nhập tên người quản lý </div>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td colspan=2>
+                                        <label class="control-label no-padding-right">Số điện thoại</label>
+                                       <input type="text" placeholder="Số điện thoại" class="form-control"
+                                            formControlName="sdt" />
+
+                                    </td>
+                                    
+                                </tr>
+                              
+                              
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-default btn-sm" (click)="reset()">
+                            <i class="fa fa-bell"></i> Làm mới
+                        </button>
+                        <button type="submit" class="btn btn-success btn-sm btn-submit">
+                            <i class="fa fa-save"></i> Đồng ý
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm" (click)="closeModal()">
+                            <i class="fa fa-times"></i> Đóng lại
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
